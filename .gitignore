@@ -1,0 +1,5 @@
+/build/
+/extras/
+.vscode
+fractal_gen
+fractal.bmp
