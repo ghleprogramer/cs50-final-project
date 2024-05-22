@@ -7,7 +7,7 @@
 #include <math.h>
 #include "../include/bmp.h"
 #include "../include/fractal_functions.h"
-#include "../include/range_list_creators.h"
+#include "../include/range_to_list.h"
 #include "../include/usage_check.h"
 
 const int zero = 0;
