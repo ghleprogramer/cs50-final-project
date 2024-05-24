@@ -1,43 +1,38 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
+#include <complex.h>
 #include "../include/bmp.h"
-#include "../include/fractal_functions.h"
 
-const int mandelbrot_EscapeValue = 2; 
-const int burningship_EscapeValue = 60;
+#define mandelbrot_EscapeValue 2
+#define burningship_EscapeValue 60
 
-BYTE mandelbrot(float x, float iy, int maxlength)
+BYTE mandel_fractal(double x, double y, int n, int maxlength)
 {    
-	float ic[] = {x, iy};
-	float z[] = {x, iy};
+	double complex c = x + I*y;
+	double complex z = c;
 	for (int i = 1; i < maxlength; i++)
 	{
-		if (pow((z[0]*z[0] + z[1]*z[1]), 0.5) > mandelbrot_EscapeValue)
+		if (cabs(z) > mandelbrot_EscapeValue)
 		{
 			return i;
 		}
-		float temp = z[0]*z[0] - z[1]*z[1] + ic[0];
-		z[1] = 2 * z[0] * z[1] + ic[1];
-		z[0] = temp;
+        z = cpow(z, n) + c;
 	}
 	return 0;
 }
 
-BYTE burningship(float x, float iy, int maxlength)
+BYTE poly_fractal(double x, double y, int n, int maxlength)
 {
-	float ic[] = {x, iy};
-	float z[] = {x, iy};
+	double complex c = x + I*y;
+	double complex z = c;
 	for (int i = 1; i < maxlength; i++)
 	{
-		if (pow((z[0]*z[0] + z[1]*z[1]), 0.5) > burningship_EscapeValue)
+		if (cabs(z) > burningship_EscapeValue)
 		{
 			return i;
 		}
-		z[0] = fabsf(z[0]);
-		z[1] = fabsf(z[1]);
-		float temp = z[0]*z[0] - z[1]*z[1] + ic[0];
-		z[1] = 2 * z[0] * z[1] + ic[1];
-		z[0] = temp;
+        z = cpow(fabs(creal(z)) + I*fabs(cimag(z)), n) + c;
 	}
 	return 0;    
 }

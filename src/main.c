@@ -28,28 +28,29 @@ int main(int argc, char *argv[])
 	}
 	printf("this is the good good fractal creation software made by ghamdi lmt\n");
 
+	int n = 3;
 	int maxlooplength = user_usage.looplengh;
 	int hight = user_usage.yres;
 	int width = user_usage.xres;
-	float xcenter = user_usage.px;  
-	float ycenter = user_usage.py;  
-	float range = user_usage.range;
+	double xcenter = user_usage.px;  
+	double ycenter = user_usage.py;  
+	double range = user_usage.range;
 
 	// Declaration of function pointer variable (thanks gpt)
-	BYTE(*fractal_function)(float x, float iy, int maxlength);
+	BYTE(*fractal_function)(double x, double iy, int n, int maxlength);
 	if (user_usage.fractal == 'M')
 	{
-		fractal_function = mandelbrot;
+		fractal_function = mandel_fractal;
 	}
 	if (user_usage.fractal == 'B')
 	{
-		fractal_function = burningship;
+		fractal_function = poly_fractal;
 	}
 
-	float xset_range = range * ((float)width / hight);
-	float yset_range = range;
-	float *x = centered_rangelist(xcenter, xset_range, width);
-	float *y = centered_rangelist(ycenter, yset_range, hight);
+	double xset_range = range * ((double)width / hight);
+	double yset_range = range;
+	double *x = centered_rangelist(xcenter, xset_range, width);
+	double *y = centered_rangelist(ycenter, yset_range, hight);
 	if (x == NULL || y == NULL)
 	{
 		return 2;
@@ -59,7 +60,7 @@ int main(int argc, char *argv[])
 	int Raster_padding = (4 - (Bytes_Per_Raster % 4)) % 4;
 	Bytes_Per_Raster += Raster_padding;
 
-	FILE *output = fopen("fractal.bmp", "wb");
+	FILE *output = fopen("/home/poggers/Desktop/cs50-final-project/img_test/fractal.bmp", "wb");
 	if (output == NULL)
 	{
 		return 2;
@@ -105,7 +106,7 @@ int main(int argc, char *argv[])
 	{
 		for (int j = 0; j < width; j++)
 		{
-			escape_array[i][j] = fractal_function(x[j], -y[i], maxlooplength);
+			escape_array[i][j] = fractal_function(x[j], -y[i], n,maxlooplength);
 			if (escape_array[i][j] > max_escape_val)
 			{
 				max_escape_val = escape_array[i][j];
@@ -113,8 +114,8 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	float color_range[] = {0, 255};
-	float *color_array = length_rangelist(color_range, max_escape_val + 1);
+	double color_range[] = {0, 255};
+	double *color_array = length_rangelist(color_range, max_escape_val + 1);
 
 	for (int i = 0; i < hight; i++)
 	{

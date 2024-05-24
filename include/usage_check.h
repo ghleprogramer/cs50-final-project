@@ -4,9 +4,9 @@
 typedef struct
 {
     char fractal;
-    float px;
-    float py;
-    float range;
+    double px;
+    double py;
+    double range;
     int looplengh;
     int xres;
     int yres;

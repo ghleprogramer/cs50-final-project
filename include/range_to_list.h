@@ -1,7 +1,7 @@
 #ifndef RANGE_TO_LIST_H_
 #define RANGE_TO_LIST_H_
 
-float *centered_rangelist(float list_center, float range, int size);
-float *length_rangelist(float range[2], int length);
+double *centered_rangelist(double list_center, double range, int size);
+double *length_rangelist(double range[2], int length);
 
 #endif

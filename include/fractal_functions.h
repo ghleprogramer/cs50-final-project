@@ -3,7 +3,7 @@
 #ifndef FRACTAL_FUNCTION_H_
 #define FRACTAL_FUNCTION_H_
 
-BYTE mandelbrot(float x, float iy, int maxlength);
-BYTE burningship(float x, float iy, int maxlength);
+BYTE mandel_fractal(double x, double iy, int n, int maxlength);
+BYTE poly_fractal(double x, double iy, int n, int maxlength);
 
 #endif

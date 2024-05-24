@@ -10,9 +10,9 @@ int usage_conrtol(int argc, char *argv[], usagereturn *ret)
 	{
 		return 1;
 	}
-	float xnum = -0.6;
-	float ynum = 0;
-	float rangenum = 4.0;
+	double xnum = -0.6;
+	double ynum = 0;
+	double rangenum = 4.0;
 	int maxloop = 100;
 	int xres = 1920;
 	int yres = 1080;
@@ -82,8 +82,8 @@ int center(char *argv[], int i, usagereturn *ret)
 	{
 		return 0;
 	}
-	float xnum = -0.6;
-	float ynum = 0;
+	double xnum = -0.6;
+	double ynum = 0;
 	char *center = argv[i];
 	int len = strlen(center);
 	int index = 0;
@@ -135,7 +135,7 @@ int center(char *argv[], int i, usagereturn *ret)
 int range(char *argv[], int i, usagereturn *ret)
 {
 	// range limit is 0.00005
-	float rangenum = 4.0;
+	double rangenum = 4.0;
 	if (i != 3)
 	{
 		return 0;

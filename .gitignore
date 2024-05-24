@@ -1,5 +1,6 @@
 /build/
 /extras/
+/img_test/
 .vscode
 fractal_gen
 fractal.bmp
