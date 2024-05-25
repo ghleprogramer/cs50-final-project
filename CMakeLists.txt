@@ -13,3 +13,5 @@ target_link_libraries(fractal_gen m)
 
 # save executable to main directory
 set_target_properties(fractal_gen PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+set(CMAKE_BUILD_TYPE Debug)

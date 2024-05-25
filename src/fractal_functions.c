@@ -2,12 +2,11 @@
 #include <stdlib.h>
 #include <math.h>
 #include <complex.h>
-#include "../include/bmp.h"
 
 #define mandelbrot_EscapeValue 2
 #define burningship_EscapeValue 60
 
-BYTE mandel_fractal(double x, double y, int n, int maxlength)
+int mandel_fractal(double x, double y, int n, int maxlength)
 {    
 	double complex c = x + I*y;
 	double complex z = c;
@@ -22,7 +21,7 @@ BYTE mandel_fractal(double x, double y, int n, int maxlength)
 	return 0;
 }
 
-BYTE poly_fractal(double x, double y, int n, int maxlength)
+int ship_fractal(double x, double y, int n, int maxlength)
 {
 	double complex c = x + I*y;
 	double complex z = c;

@@ -1,21 +1,24 @@
 // this program outputs a bmp image for a shosen fractal
 // centerd at a given cordenate in given range
+// cmake -S. -B build/ --fresh
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
-#include "../include/bmp.h"
 #include "../include/fractal_functions.h"
 #include "../include/range_to_list.h"
 #include "../include/usage_check.h"
 
-const int zero = 0;
-const int zero_array[] = {0, 0, 0, 0};
-const int one = 1;
-const int type = 0x4d42; // ascii hex for "BM"
-const int BI_RGB = 0x00;
-const int colotpalet = 24; // bit
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "../include/stb_image_write.h"
+
+typedef struct
+{
+    uint8_t  rgbtBlue;
+    uint8_t  rgbtGreen;
+    uint8_t  rgbtRed;
+} RGBTRIPLE;
 
 int main(int argc, char *argv[])
 {
@@ -27,8 +30,8 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 	printf("this is the good good fractal creation software made by ghamdi lmt\n");
-
-	int n = 3;
+	
+	int n = 2;
 	int maxlooplength = user_usage.looplengh;
 	int hight = user_usage.yres;
 	int width = user_usage.xres;
@@ -37,17 +40,17 @@ int main(int argc, char *argv[])
 	double range = user_usage.range;
 
 	// Declaration of function pointer variable (thanks gpt)
-	BYTE(*fractal_function)(double x, double iy, int n, int maxlength);
+	int(*fractal_function)(double x, double iy, int n, int maxlength);
 	if (user_usage.fractal == 'M')
 	{
 		fractal_function = mandel_fractal;
 	}
 	if (user_usage.fractal == 'B')
 	{
-		fractal_function = poly_fractal;
+		fractal_function = ship_fractal;
 	}
 
-	double xset_range = range * ((double)width / hight);
+	double xset_range = range * ((double)width / (double)hight);
 	double yset_range = range;
 	double *x = centered_rangelist(xcenter, xset_range, width);
 	double *y = centered_rangelist(ycenter, yset_range, hight);
@@ -56,93 +59,62 @@ int main(int argc, char *argv[])
 		return 2;
 	}
 
-	int Bytes_Per_Raster = width * 3;
-	int Raster_padding = (4 - (Bytes_Per_Raster % 4)) % 4;
-	Bytes_Per_Raster += Raster_padding;
-
-	FILE *output = fopen("/home/poggers/Desktop/cs50-final-project/img_test/fractal.bmp", "wb");
-	if (output == NULL)
-	{
-		return 2;
-	}
-
-	BITMAPFILEHEADER BFH;
-	BFH.bfType = type;
-	BFH.bfSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + Bytes_Per_Raster * width;
-	BFH.bfReserved1 = zero;
-	BFH.bfReserved2 = zero;
-	BFH.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
-
-	BITMAPINFOHEADER BIH;
-	BIH.biSize = sizeof(BITMAPINFOHEADER);
-	BIH.biWidth = width;
-	BIH.biHeight = hight;
-	BIH.biPlanes = one;
-	BIH.biBitCount = colotpalet;
-	BIH.biCompression = BI_RGB;
-	BIH.biSizeImage = Bytes_Per_Raster * hight; 
-	BIH.biXPelsPerMeter = zero;
-	BIH.biYPelsPerMeter = zero;
-	BIH.biClrUsed = zero;
-	BIH.biClrImportant = zero;
-
-	fwrite(&BFH, sizeof(BFH), 1, output);
-	fwrite(&BIH, sizeof(BIH), 1, output);
-
-	RGBTRIPLE(*img_array)
-	[width] = calloc(hight, width * sizeof(RGBTRIPLE));
-
-	BYTE(*escape_array)
-	[width] = calloc(hight, width * sizeof(BYTE));
-
-	if (img_array == NULL || escape_array == NULL)
-	{
-		fclose(output);
-		return 3;
-	}
+	RGBTRIPLE *img_ary = calloc(hight * width, sizeof(RGBTRIPLE));
+	int *escape_ary = calloc(hight * width, sizeof(int));
 
 	int max_escape_val = 0;
 	for (int i = 0; i < hight; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			escape_array[i][j] = fractal_function(x[j], -y[i], n,maxlooplength);
-			if (escape_array[i][j] > max_escape_val)
+			int indx = i*width + j;
+			escape_ary[indx] = fractal_function(x[j], y[i], n,maxlooplength);
+			if (escape_ary[indx] > max_escape_val)
 			{
-				max_escape_val = escape_array[i][j];
+				max_escape_val = escape_ary[indx];
 			}
 		}
 	}
 
 	double color_range[] = {0, 255};
 	double *color_array = length_rangelist(color_range, max_escape_val + 1);
-
-	for (int i = 0; i < hight; i++)
+	for (int i = 0; i < hight * width; i++)
 	{
-		for (int j = 0; j < width; j++)
-		{
-			int color = round(color_array[escape_array[i][j]]);
-			img_array[i][j].rgbtRed = color;
-			img_array[i][j].rgbtGreen = color;
-			img_array[i][j].rgbtBlue = color;
-		}
+		int color = round(color_array[escape_ary[i]]);
+		img_ary[i].rgbtRed = color;
+		img_ary[i].rgbtGreen = color;
+		img_ary[i].rgbtBlue = color;
 	}
 
-	for (int i = 0; i < hight; i++)
+	uint8_t *stb_ary = calloc(hight * width * 3, sizeof(uint8_t));
+	int stb_indx = 0;
+	for (int i = 0; i < hight * width; i++)
 	{
-		fwrite(img_array[i], sizeof(*img_array), 1, output);
-		for (int j = 0; j < Raster_padding; j++)
-		{
-			fwrite(zero_array, sizeof(BYTE), 1, output);
-		}
+		stb_ary[stb_indx] = img_ary[i].rgbtRed;
+		stb_indx++;
+		stb_ary[stb_indx] = img_ary[i].rgbtGreen;
+		stb_indx++;
+		stb_ary[stb_indx] = img_ary[i].rgbtBlue;
+		stb_indx++;
 	}
 
+	uint8_t *stb_mono_ary = calloc(hight * width, sizeof(uint8_t));
+	for (int i = 0; i < hight * width; i++)
+	{
+		stb_mono_ary[i] = round(color_array[escape_ary[i]]);
+	}
+
+	stbi_write_bmp("frct_stb.bmp", width, hight, 3, stb_ary);
+	stbi_write_png("frct_stb.png", width, hight, 3, stb_ary, sizeof(RGBTRIPLE) * width);
+	stbi_write_png("frct_mono_stb.png", width, hight, 1, stb_mono_ary, sizeof(uint8_t) * width);
+
+	free(stb_mono_ary);
+	free(stb_ary);
+	free(escape_ary);
+	free(img_ary);
 	free(y);
 	free(x);
 	free(color_array);
-	free(escape_array);
-	free(img_array);
-	fclose(output);
 	return 0;
 }
 
