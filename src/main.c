@@ -10,22 +10,32 @@
 #include "../include/fractal_functions.h"
 #include "../include/range_to_list.h"
 #include "../include/color_functions.h"
+#include "../include/usage.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "../include/stb_image_write.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
+	// F fractal, Q quality, P power, M max iteration, C center, R range
+	char *options = "F:Q:P:M:C:R:";
+	usage *usage;
+	char check = prase(argc, argv, options, usage);
+	if (check != '0') {
+		check_func(check);
+		return 1;
+	}
+
 	printf("this is the good good fractal creation software made by ghamdi lmt\n");
 	
-	int hight = 1080;//3240
-	int width = 1920;//5760
-	char fractal = 'M';
-	int n = 2; // fractal power
-	int maxlooplength = 1000;//40000
-	double xcenter = -0.6;  
-	double ycenter = 0;  
-	double range = 4;
+	int hight = usage->h;
+	int width = usage->w;
+	char fractal = usage->f;
+	int n = usage->p;
+	int maxlooplength = usage->m;
+	double xcenter = usage->xc;  
+	double ycenter = usage->yc;  
+	double range = usage->r;
 
 	// Declaration of function pointer variable (thanks gpt)
 	int(*fractal_function)(double x, double iy, int n, int maxlength);
@@ -83,4 +93,3 @@ int main(int argc, char *argv[])
 	free(x);
 	return 0;
 }
-

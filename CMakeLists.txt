@@ -6,6 +6,7 @@ include_directories(include)
 
 # get all c files from src
 file(GLOB SRC_FILES src/*.c)
+
 add_executable(fractal_gen ${SRC_FILES})
 
 #link agenst libm the math library
