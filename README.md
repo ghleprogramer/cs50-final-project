@@ -1,21 +1,21 @@
-This is the final project for CS50.
+This is the final project for CS50.\
 The project is a fractal image creation program written in C via the command line.
 
 
 ------------------------------------------------------------------
 
 
-The program usage is: ./fractal_gen <option-s>
+The program usage is: ./fractal_gen \<option-s\>\
 #when no options are given the program runs on the defaults
 
 
-options are:
--F M(mandelbrot) B(burningship) | fractal type, default M
--P pos num | fractal equation power, default 2
--R pos num | range of fractal, default 4
--C num,num | farctal center, default -0.6,0
--M pos num | fractal equation max number of iterations, default 100
--J nosubopt | conjugate fractal equation(neg power), default not
+options are:\
+-F M(mandelbrot) B(burningship) | fractal type, default M\
+-P pos num | fractal equation power, default 2\
+-R pos num | range of fractal, default 4\
+-C num,num | farctal center, default -0.6,0\
+-M pos num | fractal equation max number of iterations, default 100\
+-J nosubopt | conjugate fractal equation(neg power), default not\
 -Q SD(480p) ED(720p) HD(1080p) 4K 8K | image quality, default HD
 
 
@@ -29,16 +29,16 @@ weird errors happen, and also made it much easier with help from github.
 for me to work on the project from different computers, as I do not normally
 have one device that I use for a long period of time, but multiple
 that I switch between. With using git and github, I also
-learned to organize my project files better.
-Resources that helped me learn git are:
-https://git-scm.com/videos git basics docs/videos
+learned to organize my project files better.\
+Resources that helped me learn git are:\
+https://git-scm.com/videos git basics docs/videos\
 https://www.youtube.com/watch?v=cspx7YSvp5Q cs50 seminar on git
 
 
 For this program, since the images could get rather large in size,
-to save on storage I chose to use the STB image library. Specificly
-stb_image_write.h to write the image into pngs, monocromic pngs, and bmps.
-and that was my first time using a third-party library other than of course cs50lib
+to save on storage I chose to use the STB image library https://github.com/nothings/stb.
+Specificly stb_image_write.h to write the image into pngs, monocromic pngs, and bmps.
+and that was my first time using a third-party library other than of course cs50lib.
 
 
 When working on the project vary quickly it was apperante that writing my
@@ -46,7 +46,7 @@ own makefiles was not going to cut it. So I chose to learn CMake, and it was
 a great idea. It took some time to understand and write the CMakeLists.txt
 file for this project, but after writing it I only had to touch it once to
 set the mode to debug, and that was it for compiling the project on all
-my devices.
+my devices.\
 Understanding and writing the cmake file was only possible with the help
 of sir GPT https://chatgpt.com/
 
