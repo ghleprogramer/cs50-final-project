@@ -173,13 +173,13 @@ char prase_switch(int opt, usage *usage)
 			break;
 
 		case '4'+'K':
-			usage->h = 3840;
-			usage->w = 2160;
+			usage->h = 2160;
+			usage->w = 3840;
 			break;
 
 		case '8'+'K':
-			usage->h = 7680;
-			usage->w = 4320;
+			usage->h = 4320;
+			usage->w = 7680;
 			break;
 
 		default:
