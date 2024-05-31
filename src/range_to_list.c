@@ -1,11 +1,15 @@
+// file holds helper functions to do with creating lists(arrays)
+// 	of values in different ways
+
 #include <stdio.h>
 #include <stdlib.h>
 
 double *centered_rangelist(double list_center, double range, int size)
 {
+	// creates a list of values half the the range from the center
+	// ether side the length of size
 	double *list = malloc(sizeof(double) * size);
-	if (list == NULL)
-	{
+	if (list == NULL) {
 		return NULL;
 	}
 
@@ -20,6 +24,8 @@ double *centered_rangelist(double list_center, double range, int size)
 
 double *length_rangelist(double range[2], int length)
 {
+	// creates a list of given length from the start to the end
+	// of a given range
 	if (range[0] >= range[1])
 	{
 		return NULL;

@@ -13,7 +13,6 @@ uint8_t *norm_escape_stb(int hight, int width, int *escape_ary)
 	double *color_ary = length_rangelist(color_range, color_var);
 
 	uint8_t *stb_ary = calloc(hight * width * 3, sizeof(uint8_t));
-
 	if (stb_ary == NULL || color_ary == NULL) {
 		return NULL;
 	}
