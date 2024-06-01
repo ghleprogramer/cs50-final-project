@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 	char check = prase(argc, argv, options, usage);
 	if (check != '0') {
 		check_func(check);
-		return 1;
+		exit(1);
 	}
 
 	printf("this is the good good fractal creation software made by ghamdi lmt\n");
@@ -56,14 +56,14 @@ int main(int argc, char **argv)
 	double *y = centered_rangelist(ycenter, yset_range, hight);
 	if (x == NULL || y == NULL) {
 		printf("not enough space in memory");
-		return 2;
+		exit(2);
 	}
 
 	// escape array holds the number of itertions for each x,y value to escape
 	int *escape_ary = calloc(hight * width, sizeof(int));
 	if (escape_ary == NULL) {
 		printf("not enough space in memory");
-		return 3;
+		exit(4);
 	}
 
 	// running the fractal function on all x,y values and storing them 
@@ -80,13 +80,13 @@ int main(int argc, char **argv)
 	uint8_t *stb_ary = norm_escape_stb(hight, width, escape_ary);
 	if (stb_ary == NULL) {
 		printf("not enough space in memory");
-		return 5;
+		exit(5);
 	}
 	// black and white image data array writen by color function
 	uint8_t *stb_mono_ary = escape_stb_mono(hight, width, escape_ary);
 	if (stb_mono_ary == NULL) {
 		printf("not enough space in memory");
-		return 6;
+		exit(6);
 	}
 
 	// writing the images via the stb image library(stb_image_write.h)
@@ -100,5 +100,6 @@ int main(int argc, char **argv)
 	free(escape_ary);
 	free(y);
 	free(x);
-	return 0;
+
+	exit(0);
 }
