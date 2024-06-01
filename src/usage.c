@@ -61,7 +61,7 @@ char prase_switch(int opt, usage *usage)
 	// the father of all switchs to be switched
 	switch (opt)
 	{
-	case fractal_case:
+	case fractal_case: {
 		// check valid fractal
 		if (!strstr(" m M B b", optarg) || strlen(optarg) > 2) {
 			return fractal_case;
@@ -73,8 +73,9 @@ char prase_switch(int opt, usage *usage)
 			optarg_indx = 1;
 		usage->f = toupper(optarg[optarg_indx]);
 		break;
+	}
 
-	case power_case:
+	case power_case: {
 		usage->p = (int)strtol(optarg, NULL, 10);
 		// valid power check
 		if (usage->p < 1)
@@ -85,15 +86,17 @@ char prase_switch(int opt, usage *usage)
 			printf("fractal function power has been set to %i if it is a mistake the program can be terminated by ctrl+c\n", usage->p);
 		}
 		break;
+	}
 
-	case range_case:
+	case range_case: {
 		usage->r = strtod(optarg, NULL);
 		// valid range check
 		if (usage->r < 1)
 			return range_case;
 		break;
+	}
 
-	case center_case:
+	case center_case: {
 		// uses getsubopt for two option values
 		// array to hold x and y centers as strings 
 		char *xycent_vals[2];
@@ -131,15 +134,17 @@ char prase_switch(int opt, usage *usage)
 		free(xycent_vals[1]);
 		free(check_ptr);
 		break;
+	}
 
-	case max_iter_case:
+	case max_iter_case: {
 		usage->m = strtod(optarg, NULL);
 		// valid max iterations check
 		if (usage->m < 1)
 			return max_iter_case;
 		break;
+	}
 
-	case quality_case:
+	case quality_case: {
 		int optarg_len = strlen(optarg);
 		// valid quality check
 		if (!strstr(" sd SD ed ED hd HD 4k 4K 8k 8K", optarg)
@@ -187,6 +192,7 @@ char prase_switch(int opt, usage *usage)
 			break;
 		}
 		break;
+	}
 
 	case conjugate_case:
 		// set conj if option used
@@ -194,10 +200,7 @@ char prase_switch(int opt, usage *usage)
 		break;
 
 	case help_case:
-		// print the help text if option used
-		return help_case;
-		break;
-
+		// case over flows
 	case help_case_2:
 		// two help cases since it is common to use -h not -H
 		return help_case;

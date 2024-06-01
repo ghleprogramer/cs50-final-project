@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
+# compiler to gcc
+set(CMAKE_C_COMPILER gcc)
+
 project(fractal_gen)
 
 include_directories(include)
