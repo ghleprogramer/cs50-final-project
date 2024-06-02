@@ -1,6 +1,6 @@
 # Fractal Image Generator
 #### Video Demo: <https://youtu.be/u0SkKzIV2K0>
-#### This is the final project for CS50.\
+#### This is the final project for CS50.
 #### The project is a fractal image creation program written in C via the command line.
 
 
@@ -24,16 +24,16 @@ options are:\
 -------------------------------------------------------------------
 
 ### project is organization
-The project is organized into, an include and source folder.\
-The include folder, contains all the header files for the project,
-all headers files mostly include only the function declerations.
-Other than the usage header witch file holds the usage struct(struct containing the users options).\
-And the stb_image_write file witch cotains all image write functions from the library.\
+The project is organized into an include folder and a source folder. \
+The include folder contains all the header files for the project.
+All header files mostly include only function declarations.
+Other than the usage header, which holds the usage struct (the struct containing the user's options), \
+And the stb_image_write file, which contains all image write functions from the library.\
 The source folder holds:\
-main.c the main file that calls all other files and functions
-fractal_functions.c the file containing all the fractal functions 
+main.c, the main file that calls all other files and functions
+fractal_functions.c, the file containing all the fractal functions
 Mandelbrot, Burning Ship, and Conjugate functions.\
-usage.c where the definition for all option prasing and option error handeling functions is.\
+usage.c, where the definition for all option prasing and option error handling functions is.\
 color_functions.c is a file that holds simple functions for coloring fractal images.\
 range_to_list.c is a file that holds simple helper functions for creating lists.\
 
@@ -72,12 +72,12 @@ of sir GPT https://chatgpt.com/
 What first pulled me to fractals was the amazing complex details and shapes in fractal
 images from https://prettymathpics.com/. And after watching the pictures for a while,
 I read the article about fractals they have on the site, explaining what fractals are
-and some properties of them, and a simple explanation for the mandelbrot fractal.
-After that, I found myself in Sprott's Fractal Gallery https://sprott.physics.wisc.edu/FRACTALS.HTM
+and some properties of them, and a simple explanation for the Mandelbrot fractal.
+After that, I found myself in Sprott's Fractal Gallery: https://sprott.physics.wisc.edu/FRACTALS.HTM
 seeing and learning about all different types of wired and natural fractals, and from there
 I was set on creating my own. After that, I kept finding more and more sites that
-host fractal galleries or write about fractal equations, the one that stands out most 
-for me was https://theory.org/ with there section about the burning ship fractal.
+host fractal galleries or write about fractal equations, the one that stands out most
+for me, was https://theory.org/ with there section about the burning ship fractal.
 
 ### Standard Library
 While writing this project, I had to learn some standard C library functions.
@@ -86,7 +86,8 @@ to the project with clean minimal(kind of) code. And the switch statement
 for clear and fast setting of the values for the options. And strstr and strtod
 for simple string processing.
 
-### finishing thoughts
-Over all writing the project and a great learning experience that taught 
+### Finishing Thoughts
+Overall writing the project and a great learning experience that taught
 me a lot about project building and management, and I am glad I got to
 do it and learn programming with the amazing people of CS50.
+
