@@ -1,5 +1,5 @@
 # Fractal Image Generator
-#### Video Demo:  <URL HERE>
+#### Video Demo: <https://youtu.be/u0SkKzIV2K0>
 #### This is the final project for CS50.\
 #### The project is a fractal image creation program written in C via the command line.
 
@@ -23,7 +23,21 @@ options are:\
 
 -------------------------------------------------------------------
 
+### project is organization
+The project is organized into, an include and source folder.\
+The include folder, contains all the header files for the project,
+all headers files mostly include only the function declerations.
+Other than the usage header witch file holds the usage struct(struct containing the users options).\
+And the stb_image_write file witch cotains all image write functions from the library.\
+The source folder holds:\
+main.c the main file that calls all other files and functions
+fractal_functions.c the file containing all the fractal functions 
+Mandelbrot, Burning Ship, and Conjugate functions.\
+usage.c where the definition for all option prasing and option error handeling functions is.\
+color_functions.c is a file that holds simple functions for coloring fractal images.\
+range_to_list.c is a file that holds simple helper functions for creating lists.\
 
+### Git
 In the making of this project, the first thing that I set out to learn
 was using git for project management. Git was a huge help for me.
 It helped keep track of all my changes, especially when any mistakes or
@@ -36,13 +50,15 @@ Resources that helped me learn git are:\
 https://git-scm.com/videos git basics docs/videos\
 https://www.youtube.com/watch?v=cspx7YSvp5Q cs50 seminar on git
 
-
-For this program, since the images could get rather large in size,
+### STB Third Party Image Library
+For this program, First I was writing the images as bmp files into drive manualy
+with the bmp.h file from problem set 4, But since the images could get rather large in size,
 to save on storage I chose to use the STB image library https://github.com/nothings/stb.
-Specificly stb_image_write.h to write the image into pngs, monocromic pngs, and bmps.
-and that was my first time using a third-party library other than of course cs50lib.
+Specificly stb_image_write.h to write the image into pngs and monocromic pngs or bmps.
+And indeed I saw a lard reduction in file sizes with the use of the png format.
+And that was my first time using a third-party library other than of course cs50lib.
 
-
+### Cmake
 When working on the project vary quickly it was apperante that writing my
 own makefiles was not going to cut it. So I chose to learn CMake, and it was
 a great idea. It took some time to understand and write the CMakeLists.txt
@@ -52,7 +68,7 @@ my devices.\
 Understanding and writing the cmake file was only possible with the help
 of sir GPT https://chatgpt.com/
 
-
+### Insporatoin
 What first pulled me to fractals was the amazing complex details and shapes in fractal
 images from https://prettymathpics.com/. And after watching the pictures for a while,
 I read the article about fractals they have on the site, explaining what fractals are
@@ -63,14 +79,14 @@ I was set on creating my own. After that, I kept finding more and more sites tha
 host fractal galleries or write about fractal equations, the one that stands out most 
 for me was https://theory.org/ with there section about the burning ship fractal.
 
-
+### Standard Library
 While writing this project, I had to learn some standard C library functions.
 Most important are getopt and getsubopt to add proper command line usage
 to the project with clean minimal(kind of) code. And the switch statement
 for clear and fast setting of the values for the options. And strstr and strtod
 for simple string processing.
 
-
-over all writing the project and a great learning experience that taught 
+### finishing thoughts
+Over all writing the project and a great learning experience that taught 
 me a lot about project building and management, and I am glad I got to
 do it and learn programming with the amazing people of CS50.
