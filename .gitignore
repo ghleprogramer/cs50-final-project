@@ -2,6 +2,7 @@
 /extras/
 /img_test/
 .vscode
+.DS_store
 fractal_gen
 frct_stb.bmp
 frct_stb.png
