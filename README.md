@@ -1,5 +1,7 @@
-This is the final project for CS50.\
-The project is a fractal image creation program written in C via the command line.
+# Fractal Image Generator
+#### Video Demo:  <URL HERE>
+#### This is the final project for CS50.\
+#### The project is a fractal image creation program written in C via the command line.
 
 
 ------------------------------------------------------------------

@@ -16,8 +16,8 @@ int main(int argc, char **argv)
 {
 	// F fractal, Q quality, P power, M max iteration, C center, R range, J conjugate, H help
 	char *options = "F:Q:P:M:C:R:HhJ";
-	usage *usage; // struct holds user options
-	char check = prase(argc, argv, options, usage);
+	usage *intput = malloc(sizeof(usage)); // struct holds user options
+	char check = prase(argc, argv, options, intput);
 	if (check != '0') {
 		check_func(check);
 		exit(1);
@@ -26,15 +26,16 @@ int main(int argc, char **argv)
 	printf("this is the good good fractal creation software made by ghamdi lmt\n");
 	
 	// image and fractal values from usage struct
-	int hight = usage->h;
-	int width = usage->w;
-	char fractal = usage->f;
-	int n = usage->p;
-	int maxlooplength = usage->m;
-	double xcenter = usage->xc;  
-	double ycenter = usage->yc;
-	double range = usage->r;
-	int conj = usage->conj;
+	int hight = intput->h;
+	int width = intput->w;
+	char fractal = intput->f;
+	int n = intput->p;
+	int maxlooplength = intput->m;
+	double xcenter = intput->xc;  
+	double ycenter = intput->yc;
+	double range = intput->r;
+	int conj = intput->conj;
+	free(intput);
 
 	// Declaration of function pointer variable (thanks gpt)
 	int(*fractal_function)(double x, double iy, int n, int maxlength);
@@ -101,5 +102,5 @@ int main(int argc, char **argv)
 	free(y);
 	free(x);
 
-	exit(0);
+	return 0;
 }
