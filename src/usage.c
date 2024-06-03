@@ -96,15 +96,12 @@ char prase_switch(int opt, usage *usage)
 	}
 
 	case center_case: {
-		// array to hold x and y centers as strings
-		char *centopt = malloc(strlen(optarg) +1);
-		strcpy(centopt, optarg);
-		
+		// x, y from optarg as strings
 		char *x = NULL;
 		char *y = NULL;
-		x = strtok(centopt, ",");
+		x = strtok(optarg, ",");
 		y = strtok(NULL, ",");
-		
+		// when too many optargs or token error
 		if (strtok(NULL, ",") != NULL || x == NULL || y == NULL) {
 			return center_case;
 		}
@@ -124,7 +121,6 @@ char prase_switch(int opt, usage *usage)
 		if (usage->yc == 0 && !strcmp(*check_ptr, y))
 			return center_case;
 
-		free(centopt);
 		free(check_ptr);
 		break;
 	}
