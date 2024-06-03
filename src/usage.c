@@ -1,6 +1,5 @@
 // file holds all usage related functions
 
-#define _XOPEN_SOURCE 500
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -97,41 +96,35 @@ char prase_switch(int opt, usage *usage)
 	}
 
 	case center_case: {
-		// uses getsubopt for two option values
-		// array to hold x and y centers as strings 
-		char *xycent_vals[2];
-		int cent_vals_indx = 0;
-		// getting the values by the getsubopt
-		char *token[] = {NULL};
-		char *value;
-		while (*optarg != '\0')
-		{
-			if (cent_vals_indx > 1)// too many sub options
-				return center_case;
-			getsubopt(&optarg, token, &value);
-			// memory allocation for and copying of sub option
-			xycent_vals[cent_vals_indx] = calloc(strlen(value) + 1, sizeof(char));
-			strcpy(xycent_vals[cent_vals_indx], value);
-			cent_vals_indx++;
-		}
+		// array to hold x and y centers as strings
+		char *centopt = malloc(strlen(optarg) +1);
+		strcpy(centopt, optarg);
 		
+		char *x = NULL;
+		char *y = NULL;
+		x = strtok(centopt, ",");
+		y = strtok(NULL, ",");
+		
+		if (strtok(NULL, ",") != NULL || x == NULL || y == NULL) {
+			return center_case;
+		}
+
 		// check ptr that is big enough
-		char **check_ptr = malloc(strlen(xycent_vals[0]) + strlen(xycent_vals[1]));
+		char **check_ptr = malloc(strlen(x) + strlen(y));
 		// input check
 		// harder validation is needed since zero is a valid center value
 		// strtod return documentation from https://manual.cs50.io/3/strtod
 		// If no conversion is performed, zero is returned and (unless endptr is null)
 		// the value of nptr is stored in the location referenced by endptr.
-		usage->xc = strtod(xycent_vals[0], check_ptr);
-		if (usage->xc == 0 && !strcmp(*check_ptr, xycent_vals[0]))
+		usage->xc = strtod(x, check_ptr);
+		if (usage->xc == 0 && !strcmp(*check_ptr, y))
 			return center_case;
 		
-		usage->yc = strtod(xycent_vals[1], check_ptr);
-		if (usage->yc == 0 && !strcmp(*check_ptr, xycent_vals[1]))
+		usage->yc = strtod(y, check_ptr);
+		if (usage->yc == 0 && !strcmp(*check_ptr, y))
 			return center_case;
 
-		free(xycent_vals[0]);
-		free(xycent_vals[1]);
+		free(centopt);
 		free(check_ptr);
 		break;
 	}
