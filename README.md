@@ -69,7 +69,7 @@ of sir GPT https://chatgpt.com/
 
 ### Standard Library
 While writing this project, I had to learn some standard C library functions.
-Most important are getopt and getsubopt to add proper command line usage
+Most important are getopt, strtok, and strsep to add proper command line usage
 to the project with clean minimal(kind of) code. And the switch statement
 for clear and fast setting of the values for the options. And strstr and strtod
 for simple string processing.
